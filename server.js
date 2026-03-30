@@ -3,7 +3,7 @@ const cors = require('cors');
 const { Pool } = require('pg');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
@@ -11,11 +11,13 @@ app.use(express.json());
 
 // Configuration de la DB (remplace par tes identifiants)
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'gestion_produits',
-  password: '1234',
-  port: 5432,
+  // Remplace l'URL ci-dessous par celle fournie par Neon ou Supabase
+  connectionString: 'postgresql://neondb_owner:npg_QORz6aoqZcT3@ep-polished-sky-amn3h8le-pooler.c-5.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require',
+  
+  // Très important pour les bases de données Cloud : activer le SSL
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 // --- ROUTES ---
