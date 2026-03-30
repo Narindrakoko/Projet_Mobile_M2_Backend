@@ -11,12 +11,12 @@ app.use(cors());
 app.use(express.json());
 
 // Configuration de la DB (remplace par tes identifiants)
+const isLocal = process.env.DATABASE_URL?.includes('localhost');
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  // Si l'URL ne contient pas "localhost", on active le SSL pour la base distante
-  ssl: process.env.DATABASE_URL.includes('localhost') ? false : { rejectUnauthorized: false }
+  ssl: isLocal ? false : { rejectUnauthorized: false }
 });
-
 // --- ROUTES ---
 
 // 1. Récupérer tous les produits
